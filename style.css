@@ -1,0 +1,19 @@
+.bgColor {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    143deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(66, 45, 235, 1) 18%,
+    rgba(0, 0, 0, 1) 24%,
+    rgba(15, 193, 188, 1) 39%,
+    rgb(193, 15, 169) 87%
+  );
+}
+
+h1 {
+  color: whitesmoke;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
