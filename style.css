@@ -17,3 +17,17 @@ h1 {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.green {
+  color: rgb(80, 238, 80);
+}
+.red {
+  color: rgb(236, 90, 90);
+}
+.blue {
+  color: rgb(88, 102, 235);
+}
+
+#todo-list {
+  font-size: 1.3rem;
+}
