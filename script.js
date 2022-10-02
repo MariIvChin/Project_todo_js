@@ -34,23 +34,34 @@ function renderTodos() {
   const todoList = document.querySelector("#todo-list");
   todoList.innerHTML = "";
 
+
   todos.forEach((todo) => {
     const todoItem = document.createElement("li");
     todoItem.classList.add(
       "list-group-item",
-      "d-flex",
       "justify-content-between",
       "mb-2"
     );
+    todoItem.style.display = "flex";
+    todoList.appendChild(todoItem);
 
+    // Selectors
     const input = document.createElement("input");
     const content = document.createElement("input");
     const editBtn = document.createElement("button");
     const deleteBtn = document.createElement("button");
+    const filterByStatus = document.getElementById("filter");
+    const removeAllBtn = document.getElementById("remove-all-btn");
+    const removeDone = document.getElementById("remove-done-btn");
 
+    // Add input checkbox "isDone"
     input.type = "checkbox";
     input.classList.add("form-check-input", "me-2", "cursor-pointer");
+    input.setAttribute("id", "checkbox");
     input.checked = todo.isDone;
+    todoItem.appendChild(input);
+
+    // Add input text "content"
     content.classList.add(
       "form-control",
       "flex-fill",
@@ -59,6 +70,10 @@ function renderTodos() {
       "me-2"
     );
     content.setAttribute("readonly", "readonly");
+    content.value = todo.content;
+    todoItem.appendChild(content);
+
+    // Add edit button
     editBtn.classList.add(
       "btn",
       "btn-success",
@@ -66,33 +81,27 @@ function renderTodos() {
       "cursor-pointer",
       "me-2"
     );
-    deleteBtn.classList.add("btn", "btn-danger", "btn-sm", "cursor-pointer");
-
-    content.value = todo.content;
     editBtn.innerHTML = "Edit";
-    deleteBtn.innerHTML = "Delete";
-
-    todoItem.appendChild(input);
-    todoItem.appendChild(content);
     todoItem.appendChild(editBtn);
+
+    // Add delete button
+    deleteBtn.classList.add("btn", "btn-danger", "btn-sm", "cursor-pointer");
+    deleteBtn.innerHTML = "Delete";
     todoItem.appendChild(deleteBtn);
 
-    todoList.appendChild(todoItem);
-
+    // Check todo status
     if (todo.isDone) {
-      content.classList.add("text-decoration-line-through") &
-        content.setAttribute("disabled", true);
+      content.classList.add("text-decoration-line-through");
+      content.setAttribute("disabled", true);
+      todoItem.classList.add("done");
+    } else {
+      todoItem.classList.remove("done");
     }
 
+    //Event Listeners
     input.addEventListener("change", (e) => {
       todo.isDone = e.target.checked;
       localStorage.setItem("todos", JSON.stringify(todos));
-
-      if (todo.isDone) {
-        todoItem.classList.add("done");
-      } else {
-        todoItem.classList.remove("done");
-      }
 
       renderTodos();
     });
@@ -122,7 +131,40 @@ function renderTodos() {
       renderTodos();
     });
 
-    const removeAllBtn = document.getElementById("remove-all-btn");
+    filterByStatus.addEventListener("click", (e) => {
+      const todos = todoList.childNodes;
+      console.log(todos);
+      todos.forEach(function (todo) {
+        switch (e.target.value) {
+          case "all":
+            todo.style.display = "flex";
+            console.log(todo.style.display);
+            break;
+          case "completed":
+            if (todo.classList.contains("done")) {
+              todo.style.display = "flex";
+            } else {
+              todo.style.display = "none";
+              console.log(todo.style.display);
+            }
+            break;
+          case "need-todo":
+            if (!todo.classList.contains("done")) {
+              todo.style.display = "flex";
+            } else {
+              todo.style.display = "none";
+            }
+            break;
+        }
+      });
+    });
+
+    removeDone.addEventListener("click", (e) => {
+      todos = todos.filter((todo) => !todo.isDone);
+      localStorage.setItem("todos", JSON.stringify(todos));
+      renderTodos();
+    });
+
     removeAllBtn.addEventListener("click", (e) => {
       let start = 1;
       let deleteCount = todos.length;
@@ -131,14 +173,9 @@ function renderTodos() {
       renderTodos();
     });
 
-    const removeDone = document.getElementById("remove-done-btn");
-    removeDone.addEventListener("click", (e) => {
-      todos = todos.filter((todo) => !todo.isDone);
-      localStorage.setItem("todos", JSON.stringify(todos));
-      renderTodos();
-    });
   });
 
+  // Empty list message
   if (todos.length == 0) {
     document.getElementById("empty-list").innerHTML =
       "Your Todo list empty. Congratulation, you are free!";
@@ -147,16 +184,4 @@ function renderTodos() {
     document.getElementById("empty-list").innerHTML = "";
     document.getElementById("remove-btn").hidden = false;
   }
-
-  const filterByStatus = document.getElementById("filter");
-  filterByStatus.addEventListener("select", (e) => {
-    if (filterByStatus === 1) {
-      todos.filter((todo) => todo.isDone);
-    }
-    if (filterByStatus === 2) {
-      todos.filter((todo) => !todo.isDone);
-    }
-    localStorage.setItem("todos", JSON.stringify(todos));
-    renderTodos();
-  });
 }

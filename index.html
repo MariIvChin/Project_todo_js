@@ -54,9 +54,6 @@
                 value="Add todo"
                 class="btn btn-outline-primary rounded"
               />
-              <div id="error-message" class="row text-danger">
-                <!-- <span>something went wrong</span> -->
-              </div>
             </div>
           </form>
         </div>
@@ -66,15 +63,19 @@
             <h2 id="empty-list"></h2>
           </div>
           <div id="remove-btn" class="input-group row justify-content-end mb-4">
-            <select id="filter" class="rounded w-25" aria-label="Default select example">
-              <option selected>Choose for filter</option>
-              <option value="1">Completed</option>
-              <option value="2">To do</option>
+            <select
+              id="filter"
+              class="rounded w-25 me-2"
+              aria-label="Default select example"
+            >
+              <option value="all" selected>All</option>
+              <option value="completed">Completed</option>
+              <option value="need-todo">Need to do</option>
             </select>
             <button
               title="Remove Completed"
               id="remove-done-btn"
-              class="col-1 btn btn-success cursor-pointer"
+              class="col-1 btn btn-success cursor-pointer me-1"
             >
               <i class="bi bi-trash"></i>
             </button>
@@ -87,31 +88,7 @@
             </button>
           </div>
           <div class="row">
-            <ul id="todo-list" class="d-flex flex-column">
-              <!-- <li class="list-group-item d-flex justify-content-between">
-                <input
-                  class="form-check-input me-2 cursor-pointer"
-                  type="checkbox"
-                  checked
-                />
-                <span class="flex-fill text-uppercase fw-bold col-2"
-                  >text text text</span
-                >
-                <span class="flex-fill col-4">14.09.2022 15:30:10</span>
-                <button
-                  id="edit-btn"
-                  class="btn btn-success btn-sm cursor-pointer"
-                >
-                  <i class="bi bi-pencil"></i>
-                </button>
-                <button
-                  id="remove-btn"
-                  class="btn btn-danger btn-sm cursor-pointer"
-                >
-                  <i class="bi bi-trash text-Light"></i>
-                </button>
-              </li> -->
-            </ul>
+            <ul id="todo-list" class="d-flex flex-column"></ul>
           </div>
         </div>
       </div>

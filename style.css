@@ -31,3 +31,20 @@ h1 {
 #todo-list {
   font-size: 1.3rem;
 }
+
+button {
+  min-width: 53px;
+  
+}
+
+select {
+  min-width: 170px;
+}
+
+#checkbox {
+  min-width: 18px;
+}
+/* 
+.todo-item{
+  display: flex;
+} */
