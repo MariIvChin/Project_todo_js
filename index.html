@@ -26,7 +26,7 @@
   </head>
 
   <body>
-    <div id="root">
+    <div id="container">
       <div class="container-fluid bgColor p-5 mb-5">
         <div class="row">
           <div class="col-12 text-center">
@@ -49,10 +49,11 @@
                 aria-describedby="button-addon2"
                 value=""
               />
-              <input type="submit" value="Add todo" />
-              <!-- <button id="add-btn" class="btn btn-outline-primary" type="button">
-              Add Todo
-            </button> -->
+              <input
+                type="submit"
+                value="Add todo"
+                class="btn btn-outline-primary rounded"
+              />
               <div id="error-message" class="row text-danger">
                 <!-- <span>something went wrong</span> -->
               </div>
@@ -61,21 +62,32 @@
         </div>
 
         <div class="todos container-md">
-          <!-- <div>
-            <h2>You are free!</h2>
+          <div>
+            <h2 id="empty-list"></h2>
           </div>
-          <div class="row justify-content-end mb-4">
-            <span class="col-11 align-self-center">6/7 Completed</span>
+          <div id="remove-btn" class="input-group row justify-content-end mb-4">
+            <select id="filter" class="rounded w-25" aria-label="Default select example">
+              <option selected>Choose for filter</option>
+              <option value="1">Completed</option>
+              <option value="2">To do</option>
+            </select>
             <button
-              title="One click = Remove Completed, Two clicks = Remove All"
+              title="Remove Completed"
+              id="remove-done-btn"
+              class="col-1 btn btn-success cursor-pointer"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+            <button
+              title="Remove All"
               id="remove-all-btn"
               class="col-1 btn btn-warning cursor-pointer"
             >
               <i class="bi bi-trash"></i>
             </button>
-          </div> -->
+          </div>
           <div class="row">
-            <ul id="todo-list" class="d-flex flex-column justify-content-center">
+            <ul id="todo-list" class="d-flex flex-column">
               <!-- <li class="list-group-item d-flex justify-content-between">
                 <input
                   class="form-check-input me-2 cursor-pointer"
